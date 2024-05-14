@@ -1,5 +1,4 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const connect_string = process.CONNECT_STRING
 require('dotenv').config()
 
 
@@ -7,6 +6,8 @@ require('dotenv').config()
 const sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, process.env.DB_PASSWORD, {
 	host: process.env.DB_HOST,
 	dialect: 'postgres', /* one of 'mysql' | 'postgres' | 'sqlite' | 'mariadb' | 'mssql' | 'db2' | 'snowflake' | 'oracle' */
+  logging: false, // set to console.log to see the raw SQL queries
+  native: false,
   dialectOptions: {
     ssl: {
       require: true,
