@@ -9,6 +9,7 @@ const {
 }  = require('./src/controllers/customers.controller');
 
 const app = express();
+const port = process.env.PORT || 3001;
 
 // middleware
 app.use(express.json())
@@ -21,5 +22,7 @@ app.get('/', function (req, res) {
 
 app.post('/customer/create', createCustomer)
 
-app.listen(3000)
+app.get('/customer', getAllCustomer)
+
+app.listen(port)
 
