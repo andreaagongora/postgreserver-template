@@ -1,6 +1,15 @@
 const { Sequelize, DataTypes } = require('sequelize');
 require('dotenv').config()
 
+let sslopt = {};
+if (process.env.NODE_ENV !== "development") {
+  sslopt = {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  };
+}
 
 //const sequelize = new Sequelize(connect_string) 
 const sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, process.env.DB_PASSWORD, {
@@ -8,12 +17,7 @@ const sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, pr
 	dialect: 'postgres', /* one of 'mysql' | 'postgres' | 'sqlite' | 'mariadb' | 'mssql' | 'db2' | 'snowflake' | 'oracle' */
   logging: false, // set to console.log to see the raw SQL queries
   native: false,
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false
-    }
-}
+  dialectOptions: sslopt
 });
 
 sequelize.authenticate().then(()=> {
